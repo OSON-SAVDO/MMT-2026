@@ -1,1 +1,39 @@
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.image import AsyncImage
+from kivy.uix.button import Button
+from kivy.uix.label import Label
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.metrics import dp
 
+class HomeScreen(Screen):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        l = BoxLayout(orientation='vertical', padding=dp(20), spacing=dp(10))
+        
+        # 1. Сарлавҳа
+        l.add_widget(Label(text="MMT 2026", font_size='32sp', bold=True, color=(0.1, 0.5, 0.8, 1), size_hint_y=None, height=dp(80)))
+
+        # 2. Иконаи Китоб аз Интернет
+        # Вақте ки дар GitHub расми худро мондед, ин линкро иваз кунед
+        self.icon = AsyncImage(
+            source="https://cdn-icons-png.flaticon.com/512/2232/2232688.png",
+            size_hint=(None, None),
+            size=(dp(120), dp(120)),
+            pos_hint={'center_x': 0.5}
+        )
+        l.add_widget(self.icon)
+
+        # 3. Тугмаҳо
+        menu = ["ДОНИШГОҲҲО", "КОЛЛЕҶҲО", "КЛАСТЕРҲО", "ҲИСОБИ БАЛ", "ТЕСТҲО", "ҶАВОБҲО"]
+        for text in menu:
+            l.add_widget(Button(text=text, size_hint_y=None, height=dp(55), background_color=(0.12, 0.45, 0.7, 1), background_normal=''))
+        
+        self.add_widget(l)
+
+class MMTApp(App):
+    def build(self):
+        return HomeScreen()
+
+if __name__ == "__main__":
+    MMTApp().run()
